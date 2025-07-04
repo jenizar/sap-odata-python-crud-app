@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python-SAP OData CRUD</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
+    <style type="text/css">
+        .wrapper{
+            width: 950px;
+            margin: 0 auto;
+        }
+        .page-header h3{
+            margin-top: 0;
+            margin-left: 35;
+        }     
+        .page-header h1{
+            margin-top: 0;
+            margin-left: 35;
+        }           
+        table tr td:last-child a{
+            margin-right: 15px;
+        }
+		
+    </style>
+	
+    <script type="text/javascript">
+        $(document).ready(function(){
+    //        $('[data-toggle="tooltip"]').tooltip();  	
+
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+  
+        });
+
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header clearfix">
+                        <img style="float: left; width:150px; height:110px" src="https://github.com/jenizar/abap-rap-html-form/blob/main/screenshot/pic5.png?raw=true">
+					    <h1 class="pull-center">PT. Speed Rent Showbiz</h1>
+                        <h3 class="pull-center">Electric Car Rental</h3>
+                        <p class="pull-left">Awesome Tower 31 Fl, Jakarta, Indonesia</p>
+                    </div>
+									
+<a href="{{ url_for('addform') }}" class="btn btn-success pull-right">Add Data</a>  
+<input type="text" id="myInput" placeholder="Type to search">
+<br></br> 
+                            <table class='table table-bordered table-striped'>
+                               <thead>
+                                  <tr>
+                                        <th bgcolor='#ccccff'>Photo</th>
+                                        <th bgcolor='#ccccff'>Employee ID</th>
+                                        <th bgcolor='#ccccff'>Name</th>
+                                        <th bgcolor='#ccccff'>Position</th>                                        
+										<th bgcolor='#ffd480'>Action</th>
+                                  </tr>
+                               </thead>
+                               <tbody id='myTable'>
+{% for item in data %}		
+      <tr>
+        <td><img src="{{item["Empphoto"]}}" width=80 height=65></td>  
+        <td>{{item["Empid"]}}</td>
+        <td>{{item["Empname"]}}</td>
+        <td>{{item["Emppost"]}}</td>
+        <td><a href="{{ url_for('readform', r_empid=item["Empid"], r_empname=item["Empname"], r_emppost=item["Emppost"], r_empphoto=item["Empphoto"]) }}" title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>
+        <a href="{{ url_for('updateform', u_empid=item["Empid"], u_empname=item["Empname"], u_emppost=item["Emppost"], u_empphoto=item["Empphoto"]) }}" title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>
+        <a href="{{ url_for('deleteform', d_empid=item["Empid"], d_empname=item["Empname"], d_emppost=item["Emppost"], d_empphoto=item["Empphoto"]) }}" title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>
+		</td>
+      </tr>
+{% endfor %}								   
+				</tbody>
+</table>				
+                </div>
+            </div>        
+        </div>
+    </div>
+</body>
+</html>							   
