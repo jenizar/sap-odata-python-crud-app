@@ -1,5 +1,5 @@
 # sap-odata-python-crud-app
-SAP Odata : CRUD web app using Python Flask
+SAP OData : CRUD web app using Python Flask
 
 Demo
 
